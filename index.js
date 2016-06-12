@@ -59,6 +59,61 @@ controller.hears(['sql'], ['ambient','mention','direct_mention','direct_message'
   bot.reply(message, 'SQL should not be used by anyone. Doing so could cause you to change things. This is not allowed.')
 })
 
+controller.hears(['audit something'], 'message_recieved', function(bot,message) {
+    askTopic = function(response, convo) {
+      convo.ask('What would you like me to audit?', function(response, convo) {
+        convo.say('Okey dokey. You asked me to audit ' + response + '.');
+        askHowMuch(response, convo);
+        convo.next();
+      });
+    }
+    askHowMuch = function(response, convo) {
+      convo.ask('How much should I audit ' + response + '?', function(response, convo) {
+        convo.say('Ok. You want me to audit it this much: ' + response + '.')
+        askWhen(response, convo);
+        convo.next();
+      });
+    }
+    askWhen = function(response, convo) {
+      convo.ask('So when should I start?',[
+      {
+        pattern: ['now','right away'],
+        callback: function(response,convo) {
+          convo.say('Ok, I\'ll get started now.');
+          convo.next();
+        }
+      },
+      {
+        pattern: ['later','next week','tomorrow'],
+        callback: function(response,convo) {
+          convo.say('Ok, I\'ll get started later then.');
+          // do something else...
+          convo.next();
+
+        }
+      },
+      {
+        pattern: [bot.utterances.no,'never'],
+        callback: function(response,convo) {
+          convo.say('Ah man, you got me all excited.');
+          // do something else...
+          convo.next();
+        }
+      },
+      {
+        default: true,
+        callback: function(response,convo) {
+          // just repeat the question
+          convo.repeat();
+          convo.next();
+        }
+      }
+    ]);
+    }
+
+    bot.startConversation(message, askTopic);
+});
+
 controller.hears('help', ['direct_message', 'direct_mention'], function (bot, message) {
   var help = 'I will respond to the following messages: \n' +
       '`bot hi` for a simple message.\n' +
