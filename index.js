@@ -47,11 +47,11 @@ controller.hears('.*', ['mention'], function (bot, message) {
   bot.reply(message, 'AuditBot is always listening. And watching.')
 })
 
-controller.hears('permissions', 'permission', function (bot, message) {
+controller.hears(['permissions', 'permission'], function (bot, message) {
   bot.reply(message, 'Users should not have access to do things. Neither should devs. Or support staff. \n Permission denied.')
 })
 
-controller.hears('sql', function (bot, message) {
+controller.hears(['sql'], function (bot, message) {
   bot.reply(message, 'SQL should not be used by anyone. Doing so could cause you to change things. This is not allowed.')
 })
 
