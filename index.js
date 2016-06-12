@@ -34,30 +34,30 @@ controller.on(['bot_channel_join', 'bot_group_join'], function (bot, message) {
     bot.reply(message, welcome)
 })
 
-controller.hears(['hello', 'hi', 'hey', 'howdy'], ['direct_mention'], function (bot, message) {
-  bot.reply(message, 'Hello. How can I audit you today?')
-})
+controller.hears(['pizzatime'],['ambient'],function(bot,message) {
+  bot.startConversation(message, askFlavor);
+});
 
-controller.hears(['hello', 'hi', 'hey', 'howdy'], ['direct_message'], function (bot, message) {
-  bot.reply(message, 'Hello.')
-  bot.reply(message, 'Ready to enforce compliance.')
-})
-
-controller.hears('', ['mention'], function (bot, message) {
-  bot.reply(message, 'AuditBot is always listening. And watching.')
-})
-
-controller.hears('auditbot', ['ambient'], function (bot, message) {
-  bot.reply(message, 'AuditBot is always listening. And watching.')
-})
-
-controller.hears(['permissions', 'permission'], ['ambient', 'mention', 'direct_mention', 'direct_message'], function (bot, message) {
-  bot.reply(message, 'Users should not have access to do things. Neither should devs. Or support staff. \n Permission denied.')
-})
-
-controller.hears(['sql'], ['ambient', 'mention', 'direct_mention', 'direct_message'], function (bot, message) {
-  bot.reply(message, 'SQL should not be used by anyone. Doing so could cause you to change things. This is not allowed.')
-})
+askFlavor = function(response, convo) {
+  convo.ask("What flavor of pizza do you want?", function(response, convo) {
+    convo.say("Awesome.");
+    askSize(response, convo);
+    convo.next();
+  });
+}
+askSize = function(response, convo) {
+  convo.ask("What size do you want?", function(response, convo) {
+    convo.say("Ok.")
+    askWhereDeliver(response, convo);
+    convo.next();
+  });
+}
+askWhereDeliver = function(response, convo) { 
+  convo.ask("So where do you want it delivered?", function(response, convo) {
+    convo.say("Ok! Goodbye.");
+    convo.next();
+  });
+}
 
 controller.hears(['audit something'],['message_recieved'],function(bot, message) {
   bot.startConversation(message, askTopic)
@@ -105,6 +105,31 @@ askWhen = function(response, convo) {
       }
     ]);
 }
+
+controller.hears(['hello', 'hi', 'hey', 'howdy'], ['direct_mention'], function (bot, message) {
+  bot.reply(message, 'Hello. How can I audit you today?')
+})
+
+controller.hears(['hello', 'hi', 'hey', 'howdy'], ['direct_message'], function (bot, message) {
+  bot.reply(message, 'Hello.')
+  bot.reply(message, 'Ready to enforce compliance.')
+})
+
+controller.hears('', ['mention'], function (bot, message) {
+  bot.reply(message, 'AuditBot is always listening. And watching.')
+})
+
+controller.hears('auditbot', ['ambient'], function (bot, message) {
+  bot.reply(message, 'AuditBot is always listening. And watching.')
+})
+
+controller.hears(['permissions', 'permission'], ['ambient', 'mention', 'direct_mention', 'direct_message'], function (bot, message) {
+  bot.reply(message, 'Users should not have access to do things. Neither should devs. Or support staff. \n Permission denied.')
+})
+
+controller.hears(['sql'], ['ambient', 'mention', 'direct_mention', 'direct_message'], function (bot, message) {
+  bot.reply(message, 'SQL should not be used by anyone. Doing so could cause you to change things. This is not allowed.')
+})
 
 controller.hears('help', ['direct_message', 'direct_mention'], function (bot, message) {
   var help = 'I will respond to the following messages: \n' +
