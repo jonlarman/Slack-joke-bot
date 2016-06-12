@@ -73,7 +73,7 @@ askTopic = function(response, convo) {
 askHowMuch = function(response, convo) {
   convo.ask('How much should I audit ' + response.text + '?', function(response, convo) {
     convo.say('Ok. You want me to audit it this much:.')
-    //askWhen(response, convo);
+    askWhen(response, convo);
     convo.next();
   },{"key":"2","multiple":false});
 }
@@ -133,6 +133,11 @@ controller.hears('auditbot', ['ambient'], function (bot, message) {
 
 controller.hears(['permissions', 'permission'], ['ambient', 'mention', 'direct_mention', 'direct_message'], function (bot, message) {
   bot.reply(message, 'Users should not have access to do things. Neither should devs. Or support staff. \n Permission denied.')
+  bot.reply(message, {
+    text: "Permission Denied!",
+      username: "ZakBot",
+      icon_emoji: ":troll:",
+  })
 })
 
 controller.hears(['sql'], ['ambient', 'mention', 'direct_mention', 'direct_message'], function (bot, message) {
