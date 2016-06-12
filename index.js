@@ -59,13 +59,13 @@ controller.hears(['sql'], ['ambient', 'mention', 'direct_mention', 'direct_messa
   bot.reply(message, 'SQL should not be used by anyone. Doing so could cause you to change things. This is not allowed.')
 })
 
-controller.hears(['audit something'],['message_recieved'],function(bot,message) {
-  bot.startConversation(message, askFlavor);
-});
+controller.hears(['audit something'],['message_recieved'],function(bot, message) {
+  bot.startConversation(message, askTopic)
+})
 
 askTopic = function(response, convo) {
   convo.ask('Greetings, <@' + message.user + '>. What would you like me to audit?', function(response, convo) {
-    convo.say('Okey dokey. You asked me to audit ' + response + '.');
+    convo.say('Okey dokey. You asked me to audit ' + response + '.')
     askHowMuch(response, convo);
     convo.next();
   });
