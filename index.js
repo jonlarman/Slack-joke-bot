@@ -30,7 +30,7 @@ controller.on(['bot_channel_join', 'bot_group_join'], function (bot, message) {
   var welcome = 'AuditBot, roll out! \n' +
     'I\'m your friendly neighborhood auditbot.\n' +
     'My job is to make your life easier, by reminding you of all the things you need to do, but can\'t.\n' +
-    'Together, we\'ll achieve a work-free workplace!\n' +
+    'Together, we\'ll achieve a work-free workplace!\n'
     bot.reply(message, welcome)
 })
 
@@ -59,7 +59,7 @@ askWhereDeliver = function(response, convo) {
   });
 }
 
-controller.hears(['audit something'],['direct_mention', 'direct_message', 'mention'],function(bot, message) {
+controller.hears(['audit something','keep an eye on','watch something','monitor something'],['direct_mention', 'direct_message', 'mention'],function(bot, message) {
   bot.startConversation(message, askTopic)
 });
 
@@ -72,7 +72,7 @@ askTopic = function(response, convo) {
 }
 askHowMuch = function(response, convo) {
   convo.ask('How much should I audit ' + response.text + '?', function(response, convo) {
-    convo.say('Ok. You want me to audit it this much:' + response.text + '. Will do!')
+    convo.say('Ok. You want me to audit it ' + response.text + '. Will do!')
     //askWhen(response, convo);
     convo.next();
   },{"key":"2","multiple":false});
