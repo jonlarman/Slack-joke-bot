@@ -73,10 +73,12 @@ askTopic = function(response, convo) {
 askHowMuch = function(response, convo) {
   convo.ask('How much should I audit ' + response.text + '?', function(response, convo) {
     convo.say('Ok. You want me to audit it this much:.')
-    askWhen(response, convo);
+    //askWhen(response, convo);
     convo.next();
   },{"key":"2","multiple":false});
 }
+
+//this is broke. It crashes the bot.
 askWhen = function(response, convo) { 
   convo.ask('So when should I start?', [
       {
@@ -132,7 +134,7 @@ controller.hears('auditbot', ['ambient'], function (bot, message) {
 })
 
 controller.hears(['permissions', 'permission'], ['ambient', 'mention', 'direct_mention', 'direct_message'], function (bot, message) {
-  bot.reply(message, 'Users should not have access to do things. Neither should devs. Or support staff. \n Permission denied.')
+  bot.reply(message, 'Users should not have access to do things. Neither should devs. Or support staff.')
   bot.reply(message, {
     text: "Permission Denied!",
       username: "ZakBot",
