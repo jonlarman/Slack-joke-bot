@@ -59,23 +59,26 @@ controller.hears(['sql'], ['ambient', 'mention', 'direct_mention', 'direct_messa
   bot.reply(message, 'SQL should not be used by anyone. Doing so could cause you to change things. This is not allowed.')
 })
 
-controller.hears(['audit something'], 'message_recieved', function (bot, message) {
-  askTopic = function (response, convo) {
-    convo.ask('Greetings, <@' + message.user + '>. What would you like me to audit?', function (response, convo) {
-      convo.say('Okey dokey. You asked me to audit ' + response + '.');
-      askHowMuch(response, convo);
-      convo.next();
-    });
-  }
-  askHowMuch = function (response, convo) {
-    convo.ask('How much should I audit ' + response + '?', function (response, convo) {
-      convo.say('Ok. You want me to audit it this much: ' + response + '.')
-      askWhen(response, convo);
-      convo.next();
-    });
-  }
-  askWhen = function (response, convo) {
-    convo.ask('So when should I start?', [
+controller.hears(['audit something'],['message_recieved'],function(bot,message) {
+  bot.startConversation(message, askFlavor);
+});
+
+askTopic = function(response, convo) {
+  convo.ask('Greetings, <@' + message.user + '>. What would you like me to audit?', function(response, convo) {
+    convo.say('Okey dokey. You asked me to audit ' + response + '.');
+    askHowMuch(response, convo);
+    convo.next();
+  });
+}
+askHowMuch = function(response, convo) {
+  convo.ask('How much should I audit ' + response + '?', function(response, convo) {
+    convo.say('Ok. You want me to audit it this much: ' + response + '.')
+    askWhen(response, convo);
+    convo.next();
+  });
+}
+askWhen = function(response, convo) { 
+  convo.ask('So when should I start?', [
       {
         pattern: ['now', 'right away'],
         callback: function (response, convo) {
@@ -99,20 +102,9 @@ controller.hears(['audit something'], 'message_recieved', function (bot, message
           // do something else...
           convo.next();
         }
-      },
-      {
-        default: true,
-        callback: function (response, convo) {
-          // just repeat the question
-          convo.repeat();
-          convo.next();
-        }
       }
     ]);
-  }
-
-  bot.startConversation(message, askTopic);
-})
+}
 
 controller.hears('help', ['direct_message', 'direct_mention'], function (bot, message) {
   var help = 'I will respond to the following messages: \n' +
