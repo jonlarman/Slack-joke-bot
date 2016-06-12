@@ -72,7 +72,7 @@ askTopic = function(response, convo) {
 }
 askHowMuch = function(response, convo) {
   convo.ask('How much should I audit ' + response.text + '?', function(response, convo) {
-    convo.say('Ok. You want me to audit it this much:.')
+    convo.say('Ok. You want me to audit it this much:' + response.text + '. Will do!')
     //askWhen(response, convo);
     convo.next();
   },{"key":"2","multiple":false});
