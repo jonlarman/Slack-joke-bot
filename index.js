@@ -27,23 +27,35 @@ if (token) {
 }
 
 controller.on('bot_channel_join', function (bot, message) {
-  bot.reply(message, "I'm here!")
+   var welcome = 'AuditBot, roll out! \n' +
+      'I\'m your friendly neighborhood auditbot.\n' +
+      'My job is to make your life easier, by reminding you of all the things you need to do, but can\'t.\n' +
+      'Together, we\'ll achieve a work-free workplace!\n' +
+  bot.reply(message, welcome)
 })
 
-controller.hears(['hello', 'hi'], ['direct_mention'], function (bot, message) {
+controller.hears(['hello', 'hi', 'hey'], ['direct_mention'], function (bot, message) {
   bot.reply(message, 'Hello.')
 })
 
-controller.hears(['hello', 'hi'], ['direct_message'], function (bot, message) {
+controller.hears(['hello', 'hi', 'hey'], ['direct_message'], function (bot, message) {
   bot.reply(message, 'Hello.')
-  bot.reply(message, 'It\'s nice to talk to you directly.')
+  bot.reply(message, 'Ready to enforce compliance.')
 })
 
 controller.hears('.*', ['mention'], function (bot, message) {
-  bot.reply(message, 'You really do care about me. :heart:')
+  bot.reply(message, 'AuditBot is always listening. And watching.')
 })
 
-controller.hears('help', ['direct_message', 'direct_mention'], function (bot, message) {
+controller.hears('permissions', 'permission', function (bot, message) {
+  bot.reply(message, 'Users should not have access to do things. Neither should devs. Or support staff. \n Permission denied.')
+})
+
+controller.hears('sql', function (bot, message) {
+  bot.reply(message, 'SQL should not be used by anyone. Doing so could cause you to change things. This is not allowed.')
+})
+
+/*controller.hears('help', ['direct_message', 'direct_mention'], function (bot, message) {
   var help = 'I will respond to the following messages: \n' +
       '`bot hi` for a simple message.\n' +
       '`bot attachment` to see a Slack attachment message.\n' +
@@ -62,7 +74,7 @@ controller.hears(['attachment'], ['direct_message', 'direct_mention'], function 
     title_link: 'https://beepboophq.com/',
     text: text,
     color: '#7CD197'
-  }]
+  }]*/
 
   bot.reply(message, {
     attachments: attachments
