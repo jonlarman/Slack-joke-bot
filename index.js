@@ -55,7 +55,7 @@ controller.hears('sql', function (bot, message) {
   bot.reply(message, 'SQL should not be used by anyone. Doing so could cause you to change things. This is not allowed.')
 })
 
-/*controller.hears('help', ['direct_message', 'direct_mention'], function (bot, message) {
+controller.hears('help', ['direct_message', 'direct_mention'], function (bot, message) {
   var help = 'I will respond to the following messages: \n' +
       '`bot hi` for a simple message.\n' +
       '`bot attachment` to see a Slack attachment message.\n' +
@@ -74,14 +74,14 @@ controller.hears(['attachment'], ['direct_message', 'direct_mention'], function 
     title_link: 'https://beepboophq.com/',
     text: text,
     color: '#7CD197'
-  }]*/
+  }]
 
   bot.reply(message, {
     attachments: attachments
   }, function (err, resp) {
     console.log(err, resp)
   })
-
+})
 
 controller.hears('.*', ['direct_message', 'direct_mention'], function (bot, message) {
   bot.reply(message, 'Sorry <@' + message.user + '>, I don\'t understand. \n')
