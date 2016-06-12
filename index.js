@@ -35,7 +35,7 @@ controller.on('bot_channel_join', function (bot, message) {
 })
 
 controller.hears(['hello', 'hi', 'hey'], ['direct_mention'], function (bot, message) {
-  bot.reply(message, 'Hello.')
+  bot.reply(message, 'Hello. How can I audit you today?')
 })
 
 controller.hears(['hello', 'hi', 'hey'], ['direct_message'], function (bot, message) {
@@ -43,7 +43,11 @@ controller.hears(['hello', 'hi', 'hey'], ['direct_message'], function (bot, mess
   bot.reply(message, 'Ready to enforce compliance.')
 })
 
-controller.hears('.*', ['mention'], function (bot, message) {
+controller.hears('', ['mention'], function (bot, message) {
+  bot.reply(message, 'AuditBot is always listening. And watching.')
+})
+
+controller.hears('auditbot', ['ambient'], function (bot, message) {
   bot.reply(message, 'AuditBot is always listening. And watching.')
 })
 
