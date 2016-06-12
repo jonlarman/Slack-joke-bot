@@ -65,7 +65,7 @@ controller.hears(['audit something'],['direct_mention', 'direct_message', 'menti
 
 askTopic = function(response, convo) {
   convo.ask('Greetings, <@' + message.user + '>. What would you like me to audit?', function(response, convo) {
-    convo.say('Okey dokey. You asked me to audit ' + response + '.')
+    convo.say('Okey dokey. You asked me to audit')
     askHowMuch(response, convo);
     convo.next();
   });
