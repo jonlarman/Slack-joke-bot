@@ -68,21 +68,21 @@ askTopic = function(response, convo) {
     convo.say('Okey dokey. You asked me to audit ' + response.text + '.')
     askHowMuch(response, convo);
     convo.next();
-  });
+  },{"key":"1","multiple":false});
 }
 askHowMuch = function(response, convo) {
   convo.ask('How much should I audit ' + response.text + '?', function(response, convo) {
     convo.say('Ok. You want me to audit it this much: ' + response.text + '.')
     askWhen(response, convo);
     convo.next();
-  });
+  },{"key":"2","multiple":false});
 }
 askWhen = function(response, convo) { 
   convo.ask('So when should I start?', [
       {
         pattern: ['now', 'right away'],
         callback: function (response, convo) {
-          convo.say('Ok, I\'ll get started now.');
+          convo.say('Ok, I\'ll get started now.')
           convo.next();
         }
       },
@@ -100,6 +100,14 @@ askWhen = function(response, convo) {
         callback: function (response, convo) {
           convo.say('Ah man, you got me all excited.');
           // do something else...
+          convo.next();
+        }
+      },
+      {
+        default: true,
+        callback: function(response,convo) {
+          // just repeat the question
+          convo.repeat();
           convo.next();
         }
       }
