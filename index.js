@@ -59,7 +59,7 @@ askWhereDeliver = function(response, convo) {
   });
 }
 
-controller.hears(['audit something'],['message_recieved'],function(bot, message) {
+controller.hears(['audit something'],['direct_mention', 'direct_message', 'mention'],function(bot, message) {
   bot.startConversation(message, askTopic)
 })
 
