@@ -34,31 +34,6 @@ controller.on(['bot_channel_join', 'bot_group_join'], function (bot, message) {
     bot.reply(message, welcome)
 })
 
-controller.hears(['pizzatime'],['ambient'],function(bot,message) {
-  bot.startConversation(message, askFlavor);
-});
-
-askFlavor = function(response, convo) {
-  convo.ask("What flavor of pizza do you want?", function(response, convo) {
-    convo.say("Awesome.");
-    askSize(response, convo);
-    convo.next();
-  });
-}
-askSize = function(response, convo) {
-  convo.ask("What size do you want?", function(response, convo) {
-    convo.say("Ok.")
-    askWhereDeliver(response, convo);
-    convo.next();
-  });
-}
-askWhereDeliver = function(response, convo) { 
-  convo.ask("So where do you want it delivered?", function(response, convo) {
-    convo.say("Ok! Goodbye.");
-    convo.next();
-  });
-}
-
 controller.hears(['audit something','keep an eye on','watch something','monitor something'],['direct_mention', 'direct_message', 'mention'],function(bot, message) {
   bot.startConversation(message, askTopic)
 });
