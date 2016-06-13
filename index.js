@@ -132,7 +132,7 @@ controller.hears(['permissions', 'permission'], ['ambient', 'mention', 'direct_m
 controller.hears(['production data'], ['ambient', 'mention', 'direct_mention', 'direct_message'], function (bot, message) {
   bot.reply(message, 'Production data is not for use by humans. It must be protected from useful purposes at all costs.')
   bot.reply(message, {
-    text: "Permission Denied!",
+    text: "Can't fix stupid!",
       username: "ZakBot",
       icon_emoji: ":troll:",
   })
