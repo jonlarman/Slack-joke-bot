@@ -116,8 +116,21 @@ controller.hears('auditbot', ['ambient'], function (bot, message) {
   bot.reply(message, 'AuditBot is always listening. And watching.')
 })
 
+controller.hears(['autobot'], ['ambient'], function (bot, message) {
+  bot.reply(message, 'Did you mean \'AuditBot\'?')
+})
+
 controller.hears(['permissions', 'permission'], ['ambient', 'mention', 'direct_mention', 'direct_message'], function (bot, message) {
   bot.reply(message, 'Users should not have access to do things. Neither should devs. Or support staff.')
+  bot.reply(message, {
+    text: "Permission Denied!",
+      username: "ZakBot",
+      icon_emoji: ":troll:",
+  })
+})
+
+controller.hears(['production data'], ['ambient', 'mention', 'direct_mention', 'direct_message'], function (bot, message) {
+  bot.reply(message, 'Production data is not for use by humans. It must be protected from useful purposes at all costs.')
   bot.reply(message, {
     text: "Permission Denied!",
       username: "ZakBot",
