@@ -104,6 +104,14 @@ controller.hears('', ['mention'], function (bot, message) {
   bot.reply(message, 'AuditBot is always listening. And watching.')
 })
 
+controller.hears(['who is your enemy','auditbot\'s enemy'], ['direct_mention','direct_message'], function (bot, message) {
+  bot.reply(message, 'My enemy is the evil Permissicons. They seek to destroy the world by providing employees with access to vital work functions.')
+})
+
+controller.hears(['auditbot\'s enemy','auditbot\'s nightmare','auditbot\'s worst nightmare'], ['ambient'], function (bot, message) {
+  bot.reply(message, 'My enemy is the evil Permissicons. They seek to destroy the world by providing employees with access to vital work functions.')
+})
+
 controller.hears('auditbot', ['ambient'], function (bot, message) {
   bot.reply(message, 'AuditBot is always listening. And watching.')
 })
