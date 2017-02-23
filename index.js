@@ -101,7 +101,16 @@ controller.hears(['hello', 'hi', 'hey', 'howdy'], ['direct_message'], function (
 })
 
 controller.hears('', ['mention'], function (bot, message) {
-  bot.reply(message, 'AuditBot is always listening. And watching.')
+  var message_options = [
+    "Ahem...",
+    "Did somebody say permissions?",
+    "Oh, I'm listening.",
+    "AuditBot is always listening. And watching."
+  ]
+  var random_index = Math.floor(Math.random() * message_options.length)
+  var chosen_message = message_options[random_index]
+
+  bot.reply(message, chosen_message)
 })
 
 controller.hears(['who is your enemy','auditbot\'s enemy'], ['direct_mention','direct_message'], function (bot, message) {
@@ -129,6 +138,10 @@ controller.hears(['permissions', 'permission'], ['ambient', 'mention', 'direct_m
   })
 })
 
+controller.hears(['persimmon', 'persimmons'], ['ambient', 'mention', 'direct_mention', 'direct_message'], function (bot, message) {
+  bot.reply(message, 'I heard that. Don\'t make me call ZakBot.')
+})
+
 controller.hears(['production data'], ['ambient', 'mention', 'direct_mention', 'direct_message'], function (bot, message) {
   bot.reply(message, 'Production data is not for use by humans. It must be protected from useful purposes at all costs.')
   bot.reply(message, {
@@ -142,6 +155,14 @@ controller.hears(['sql'], ['ambient', 'mention', 'direct_mention', 'direct_messa
   bot.reply(message, 'SQL should not be used by anyone. Doing so could cause you to change things. This is not allowed.')
 })
 
+/*controller.hears(['INC0'], ['ambient'], function (bot, message) {
+  bot.reply(message, {
+    text: "Permission Denied!",
+      username: "HelpfulBot",
+      icon_emoji: ":troll:",
+  })
+})
+*/
 controller.hears('help', ['direct_message', 'direct_mention'], function (bot, message) {
   var help = 'I will respond to the following messages: \n' +
     '`bot hi` for a simple message.\n' +
