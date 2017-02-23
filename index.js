@@ -122,7 +122,16 @@ controller.hears(['auditbot\'s enemy','auditbot\'s nightmare','auditbot\'s worst
 })
 
 controller.hears('auditbot', ['ambient'], function (bot, message) {
-  bot.reply(message, 'AuditBot is always listening. And watching.')
+  var message_options = [
+    "Ahem...",
+    "Did somebody say permissions?",
+    "Oh, I'm listening.",
+    "AuditBot is always listening. And watching."
+  ]
+  var random_index = Math.floor(Math.random() * message_options.length)
+  var chosen_message = message_options[random_index]
+
+  bot.reply(message, chosen_message)
 })
 
 controller.hears(['autobot'], ['ambient'], function (bot, message) {
